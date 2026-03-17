@@ -4,16 +4,42 @@
 #include "poli.h"
 
 polinomio * poli_create(int grau){
-    // TODO: Implemente aqui a solucao para operacao create
+    // Aloca o espaço para a estrutura do polinômio
+    polinomio *p = (polinomio *) malloc(sizeof(polinomio));
+    
+    //Se a alocação falhar, retorna NULL
+    if (p == NULL) return NULL;
 
-    return NULL;
+    //Guarda o grau no campo correto da struct
+    p->grau = grau;
+
+    //Aloca o vetor de coeficientes (grau + 1 posições)
+    p->coeficientes = (double *) malloc((grau + 1) * sizeof(double));
+
+    //Verifica se a alocação do vetor funcionou
+    if (p->coeficientes == NULL) {
+        free(p); // Se falhou o vetor, libera a struct antes de sair
+        return NULL;
+    }
+
+    return p;
 }
 
 void poli_destroy(polinomio **p){
-    // TODO: Implemente aqui a solucao para operacao destroy
+    // Verifica se o ponteiro e é nulo
+    if (p == NULL || *p == NULL) return;
 
+    // Libera o vetor que está dentro da struct
+    free((*p)->coeficientes);
+
+    //  Libera a struct 
+    free(*p);
+
+    // Faz o ponteiro original apontar para NULL 
+    *p = NULL;
 
     return;
+
 }
 
 int poli_ins_termo(polinomio *p, int exp, int coef) {
