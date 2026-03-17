@@ -18,14 +18,31 @@ void poli_destroy(polinomio **p){
 
 int poli_ins_termo(polinomio *p, int exp, int coef) {
     // TODO: Implemente aqui a solucao para operacao insere coeficiente
+    if(exp < 0 || exp > p->grau){
+        return 0;
+    }
+    if(coef == 0 && p->coeficientes[exp] != 0){
+        p->termos--;
+    }else if (coef != 0 && p->coeficientes[exp] == 0) {
+        p->termos++;
+    }
 
-    return 0;
+    p->coeficientes[exp] = coef;
+
+    return 1;
 }
 
 int poli_get_termo(polinomio *p, int exp, int *coef){
     // TODO: Implemente aqui a solucao para operacao get coeficiente
-
-    return 0;
+    if(exp < 0 || exp > p->grau){
+        return 0;
+    }
+    if(p->coeficientes[exp] == 0){
+        return 0;
+    }else{
+        *coef = p->coeficientes[exp];
+    }
+    return 1;
 }
 
 int calcula_px(polinomio *p, int x){
