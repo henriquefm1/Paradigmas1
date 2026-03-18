@@ -86,6 +86,22 @@ int calcula_px(polinomio *p, int x){
 
 polinomio * poli_soma(polinomio *p, polinomio *q){
     // TODO: Implemente aqui a solucao para operacao que soma dois polinomios e gera um terceiro
+    int grau_max = (p->grau > q->grau) ? p->grau : q->grau;
+    polinomio *s = poli_create(grau_max);
+    if(resultado == NULL) return NULL;
+
+    for(int i=0; i<= grau_max; i++){
+        double coef_p =0, coef_q = 0;
+
+        if(i <= p->grau) coef_p = p->coeficientes[i];
+
+        if(i <= q->grau) coef_q = q->coeficientes[i];
+
+        resultado->coeficientes[i] = coef_p + coef_q;
+    }
+
+    return resultado;
+}
 
     return NULL;
 }
