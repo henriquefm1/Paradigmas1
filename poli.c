@@ -12,9 +12,10 @@ polinomio * poli_create(int grau){
 
     //Guarda o grau no campo correto da struct
     p->grau = grau;
+    p->termos = 0;
 
     //Aloca o vetor de coeficientes (grau + 1 posições)
-    p->coeficientes = (double *) malloc((grau + 1) * sizeof(double));
+    p->coeficientes = (int *) calloc((grau + 1), sizeof(int));
 
     //Verifica se a alocação do vetor funcionou
     if (p->coeficientes == NULL) {
@@ -72,9 +73,15 @@ int poli_get_termo(polinomio *p, int exp, int *coef){
 }
 
 int calcula_px(polinomio *p, int x){
-    // TODO: Implemente aqui a solucao para operacao calcula o valor de P(x)     
+    // TODO: Implemente aqui a solucao para operacao calcula o valor de P(x)
+    int resultado = 0;
+    int pot = 1;
+    for(int i = 0; i <= p->grau; i++){
+        resultado = resultado + (p->coeficientes[i] * pot);
+        pot = pot * x;
+    }
     
-    return 0;
+    return resultado;
 }
 
 polinomio * poli_soma(polinomio *p, polinomio *q){
@@ -94,5 +101,3 @@ polinomio * poli_div(polinomio *p, polinomio *q){
 
     return NULL;
 }
-
-
